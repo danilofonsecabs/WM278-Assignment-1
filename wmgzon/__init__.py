@@ -26,18 +26,16 @@ def create_app(test_config=None):
         pass
     @app.route("/hello")
     def home():
-        return "Hello! this is the main page <h1>HELLO</h1>"
+        return "Hello! this is checking wether the website is functional <h1>HELLO</h1>"
 
     @app.route('/view_data')
     def view_data():
         conn = sqlite3.connect(app.config['DATABASE'])
         c = conn.cursor()
-        c.execute('SELECT * FROM user')
+        c.execute('SELECT * FROM product')
         data = c.fetchall()
         conn.close()
         return render_template('view_data.html', data=data)
-
-
 
 
     from . import db
@@ -53,6 +51,8 @@ def create_app(test_config=None):
     app.register_blueprint(landingpage.landingpage)
     app.add_url_rule('/', endpoint='index')
 
+    from . import admin_page
+    app.register_blueprint(admin_page.admin_bp)
 
 
     return app
