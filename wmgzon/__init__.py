@@ -4,6 +4,7 @@ from markupsafe import escape
 import os
 
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -53,6 +54,8 @@ def create_app(test_config=None):
 
     from . import admin_page
     app.register_blueprint(admin_page.admin_bp)
+
+
 
 
     return app

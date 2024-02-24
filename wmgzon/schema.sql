@@ -14,6 +14,7 @@ CREATE TABLE product (
     title TEXT NOT NULL,
     price INTEGER NOT NULL,
     description TEXT NOT NULL,
+    image_filename TEXT,
 --     rating INTEGER NOT NULL,
 --     in_stock BOOLEAN,
 --     image BLOB NOT NULL,
