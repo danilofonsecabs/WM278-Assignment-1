@@ -1,15 +1,27 @@
-{% extends 'base.html' %}
+{% extends 'admin/adminpage.html' %}
 
-{% block header %}
-  <h1>{% block title %}this is the admin page{% endblock %}</h1>
-{% endblock %}
+{% block admin_content %}
 
-{% block content %}
-  <form method="post">
-      <label for="title">Title</label>
-      <input name="title" id="title" value="{{ request.form['title'] }}" required>
-      <label for="price">Title</label>
-      <input name="price" id="price" value="{{ request.form['price'] }}" required>
-      <input type="submit" value="Save">
-  </form>
+    <form method="post" style="margin-left: 20px;">
+      <div style="margin-bottom: 10px;">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" value="{{ request.form['title'] }}" required>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="price">Price:</label><br>
+        <input type="number" id="price" name="price" value="{{ request.form['price'] }}" required>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50">{{ request.form['description'] }}</textarea>
+      </div>
+
+      <div>
+        <input type="submit" value="Save">
+      </div>
+    </form>
+
+
 {% endblock%}

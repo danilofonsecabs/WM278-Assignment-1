@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
+{% block content %}
 
-{% block header %}
-  <h1>{% block title %}this is the admin page{% endblock %}</h1>
+<div class="container-fluid">
+  <div class="row">
+      <div class="vertical-navbar">
+        <nav class="col-md-2 d-flex flex-column bg-light text-dark">
+          <h5 class="my-3">Navbar</h5>
+          <a href="#" class="nav-link">Link hubada skubada1</a>
+          <a href="#" class="nav-link">Link 2</a>
+          <a href="#" class="nav-link">Link 3</a>
+        </nav>
+      </div>
+    <!-- content area -->
+      <div class="col-md-10">
+        <div class="main-content">
+          {% block admin_content %}
+          {% endblock %}
+        </div>
+      </div>
+  </div>
+</div>
 {% endblock %}
+

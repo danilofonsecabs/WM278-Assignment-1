@@ -14,8 +14,8 @@ CREATE TABLE product (
     title TEXT NOT NULL,
     price INTEGER NOT NULL,
     description TEXT NOT NULL,
-    rating INTEGER NOT NULL,
-    in_stock BOOLEAN,
+--     rating INTEGER NOT NULL,
+--     in_stock BOOLEAN,
 --     image BLOB NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user (id)
 
