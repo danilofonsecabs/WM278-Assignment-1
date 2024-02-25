@@ -1,14 +1,16 @@
-from flask import(Blueprint, flash, g, redirect, render_template, request, session, url_for)
+from flask import(current_app, Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from wmgzon.db import get_db
 import os
 from werkzeug.utils import secure_filename
 from wmgzon.auth import login_required
+from wmgzon import current_app
 
 admin_bp = Blueprint('adminpage', __name__, url_prefix='/admin')
-
-
-UPLOAD_FOLDER = 'wmgzon/static/product_images'  # Specify the folder where product_images will be uploaded
+UPLOAD_FOLDER = 'wmgzon/static/product_images/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+ # Specify the folder where product_images will be uploaded
+
 
 
 # Function to check if the file extension is allowed
@@ -32,6 +34,7 @@ def create_product():
             return redirect(request.url)
 
         file = request.files['image']
+
 
         if file.filename == '':
             flash('No selected file')

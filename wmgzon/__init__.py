@@ -1,7 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, current_app
 import sqlite3
 from markupsafe import escape
 import os
+
 
 
 
@@ -11,7 +12,13 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'wmgzon.sqlite'),
+        UPLOAD_FOLDER='wmgzon/static/product_images',  # Define the upload folder
+        ALLOWED_EXTENSIONS={'png', 'jpg', 'jpeg', 'gif'}  # Define allowed extensions
+
     )
+
+    # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    # app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
