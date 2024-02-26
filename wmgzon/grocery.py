@@ -25,14 +25,30 @@ def index():
 @grocery.route('/product/<int:product_id>')
 def view_product(product_id):
     # Retrieve product information from the database using the product_id
-    product= get_db().execute(
-        'SELECT p.id, title, description, price, image_filename, author_id, username'
-        ' FROM product p JOIN user u ON p.author_id = u.id'
-        ' WHERE p.id = product_id',
-        (id,)
-    ).fetchone()
+    cursor = get_db().cursor()  # Assuming you have a function get_db() to get a database cursor
+
+    # Execute SQL query to fetch product details
+    cursor.execute('''
+            SELECT p.id, p.title, p.price, p.description, p.image_filename
+            FROM product p
+            WHERE p.id = ?
+        ''', (product_id,))
+
+    product = cursor.fetchone()
+
+    # If product is not found, return a 404 error
+    if product is None:
+        abort(404)
+
     # Pass the product information to the product detail template
-    return render_template('landingpage/product_detail.html', product=product_id)
+    return render_template('landingpage/product_detail.html', product=product)
+
+# product= get_db().execute(
+#         'SELECT p.id, title, description, price, image_filename, author_id, username'
+#         ' FROM product p JOIN user u ON p.author_id = u.id'
+#         ' WHERE p.id = product_id',
+#         (id,)
+#     ).fetchone()
 def get_post(id, check_author=True):
     post = get_db().execute(
         'SELECT p.id, title, description, price, image_filename, author_id, username'
