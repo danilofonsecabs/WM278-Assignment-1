@@ -19,7 +19,7 @@ def index():
      ).fetchall()
     return render_template('landingpage/grocery.html', products=products)
 
-@grocery.route('/product/<int:product_id>')
+@grocery.route('/<int:product_id>')
 def view_product(product_id):
     # Retrieve product information from the database using the product_id
     cursor = get_db().cursor()  # Assuming you have a function get_db() to get a database cursor
