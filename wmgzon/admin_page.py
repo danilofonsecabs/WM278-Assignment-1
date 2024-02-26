@@ -43,7 +43,7 @@ def create_product():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            file.save(os.path.join(current_app.UPLOAD_FOLDER, filename))
 
         else:
             flash('Invalid file format')
