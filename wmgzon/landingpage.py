@@ -6,7 +6,7 @@ import sqlite3
 from wmgzon.auth import login_required
 from wmgzon.db import get_db
 
-landingpage = Blueprint('landingpage', __name__, url_prefix="/home")
+landingpage = Blueprint('landingpage', __name__)
 
 @landingpage.route('/')
 def index():
@@ -18,14 +18,4 @@ def index():
     # ).fetchall()
     return render_template('landingpage/index.html')
 
-# @landingpage.route('/view_data')
-# def view_data():
-#     conn = sqlite3.connect('wmgzon.db')
-#     c = conn.cursor()
-#     c.execute('SELECT * FROM user')
-#     data = c.fetchall()
-#     conn.close()
-#     return render_template('view_data.html', data=data)
-#
-#
-#
+

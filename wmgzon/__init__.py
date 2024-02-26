@@ -8,17 +8,19 @@ import os
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'wmgzon.sqlite'),
-        UPLOAD_FOLDER='wmgzon/static/product_images',  # Define the upload folder
-        ALLOWED_EXTENSIONS={'png', 'jpg', 'jpeg', 'gif'}  # Define allowed extensions
+    UPLOAD_FOLDER = 'wmgzon/static/images'  # Define the upload folder
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-    )
+    app = Flask(__name__,static_folder='static', instance_relative_config=True)
+    with app.app_context():
+        app.config.from_mapping(
+            SECRET_KEY='dev',
+            DATABASE=os.path.join(app.instance_path, 'wmgzon.sqlite'),
+             # Define allowed extensions
 
-    # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    # app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
+        )
+        app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+        app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

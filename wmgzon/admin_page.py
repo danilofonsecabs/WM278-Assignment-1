@@ -6,8 +6,8 @@ from wmgzon.auth import login_required
 from wmgzon import current_app
 
 admin_bp = Blueprint('adminpage', __name__, url_prefix='/admin')
-UPLOAD_FOLDER = 'wmgzon/static/product_images/'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# UPLOAD_FOLDER = 'wmgzon/static/product_images/'
+#
 
  # Specify the folder where product_images will be uploaded
 
@@ -15,11 +15,15 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 # Function to check if the file extension is allowed
 def allowed_file(filename):
+    #ALLOWED_EXTENSIONS = current_app.config['ALLOWED_EXTENSIONS']
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @admin_bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create_product():
+    UPLOAD_FOLDER = current_app.config['UPLOAD_FOLDER']
     if request.method == 'POST':
         title = request.form['title']
         price = request.form['price']
@@ -42,8 +46,10 @@ def create_product():
             #print('nofile')
 
         if file and allowed_file(file.filename):
+            print(UPLOAD_FOLDER)
+            print(file.filename)
             filename = secure_filename(file.filename)
-            file.save(os.path.join(current_app.UPLOAD_FOLDER, filename))
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
 
         else:
             flash('Invalid file format')

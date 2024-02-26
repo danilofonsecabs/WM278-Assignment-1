@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 from wmgzon.auth import login_required
 from wmgzon.db import get_db
 
-grocery = Blueprint('grocery', __name__, url_prefix='/home', template_folder='landingpage/grocery')
+grocery = Blueprint('grocery', __name__, template_folder='landingpage/grocery')
 
 @grocery.route('/grocery')
 def index():
@@ -25,11 +25,11 @@ def view_product(product_id):
     cursor = get_db().cursor()  # Assuming you have a function get_db() to get a database cursor
 
     # Execute SQL query to fetch product details
-    cursor.execute('''
-            SELECT p.id, p.title, p.price, p.description, p.image_filename
-            FROM product p
-            WHERE p.id = ?
-        ''', (product_id,))
+    cursor.execute(
+            'SELECT p.id, p.title, p.price, p.description, p.image_filename'
+            ' FROM product p'
+            ' WHERE p.id = ?',
+            (product_id,))
 
     product = cursor.fetchone()
 
