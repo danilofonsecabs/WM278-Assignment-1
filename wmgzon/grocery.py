@@ -41,7 +41,7 @@ def view_product(product_id):
     return render_template('landingpage/product_detail.html', product=product)
 
 
-def get_post(id, check_author=True):
+def get_product(id, check_author=True):
     post = get_db().execute(
         'SELECT p.id, title, description, price, image_filename, author_id, username'
         ' FROM product p JOIN user u ON p.author_id = u.id'

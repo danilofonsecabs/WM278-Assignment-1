@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="static/style.css">
+<div class="container-fluid">
+  <div class="row">
+    <!-- Vertical Navbar -->
+    <nav class="col-md-2 d-flex flex-column bg-light text-dark">
+      <h5 class="my-3">Navbar</h5>
+      <a href="#" class="nav-link">Link 1</a>
+      <a href="#" class="nav-link">Link 2</a>
+      <a href="#" class="nav-link">Link 3</a>
+    </nav>
+
+    <!-- Product List -->
+    <div class="col-md-10">
+      <h2 class="mt-3">Admin Product List</h2>
+
+      <div class="row">
+        {% for product in products %}
+          <div class="col-md-4 mb-3">
+            <div class="card datacard">
+
+              <div class="card-body">
+                <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
+                <h5 class="card-title">{{ product['title'] }}</h5>
+                <p class="card-text">{{ product['description'] }} <br>{{ product['price'] }} <br> created by: {{ product['username'] }}</p>
+                <a href="{{ url_for('adminpage.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
+
+                <a href="{{ url_for('adminpage.delete', product_id=product['id']) }}" class="btn btn-primary">Delete Product</a>
+              </div>
+            </div>
+          </div>
+          {% if loop.index % 3 == 0 %}
+            </div><div class="row">
+          {% endif %}
+        {% endfor %}
+      </div> <!-- End of Product Cards Row -->
+    </div> <!-- End of Product List -->
+  </div> <!-- End of Row -->
+</div> <!-- End of Container -->
+{% endblock %}
