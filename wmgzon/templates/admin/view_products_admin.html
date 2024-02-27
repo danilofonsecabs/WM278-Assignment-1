@@ -7,7 +7,7 @@
     <!-- Vertical Navbar -->
     <nav class="col-md-2 d-flex flex-column bg-light text-dark">
       <h5 class="my-3">Navbar</h5>
-      <a href="#" class="nav-link">Link 1</a>
+      <a href="#" class="nav-link">Create a Product</a>
       <a href="#" class="nav-link">Link 2</a>
       <a href="#" class="nav-link">Link 3</a>
     </nav>
@@ -26,8 +26,8 @@
                 <h5 class="card-title">{{ product['title'] }}</h5>
                 <p class="card-text">{{ product['description'] }} <br>{{ product['price'] }} <br> created by: {{ product['username'] }}</p>
                 <a href="{{ url_for('adminpage.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
-
                 <a href="{{ url_for('adminpage.delete', product_id=product['id']) }}" class="btn btn-primary">Delete Product</a>
+
               </div>
             </div>
           </div>

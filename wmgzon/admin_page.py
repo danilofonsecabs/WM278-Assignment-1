@@ -31,7 +31,14 @@ def get_product(id, check_author=True):
         abort(403)
 
     return post
-@admin_bp.route('/create', methods=('GET', 'POST'))
+
+@admin_bp.route('/adminhome', methods=('GET', 'POST'))
+@login_required
+def admin_home():
+    return render_template('admin/adminpage.html')
+
+
+@admin_bp.route('/createproduct', methods=('GET', 'POST'))
 @login_required
 def create_product():
     UPLOAD_FOLDER = current_app.config['UPLOAD_FOLDER']
@@ -85,6 +92,7 @@ def create_product():
 
     return render_template('admin/add_product.html')
 
+
 @admin_bp.route('/view_products')
 @login_required
 def view_products_admin():
@@ -120,12 +128,12 @@ def view_product(product_id):
     return render_template('landingpage/product_detail.html', product=product)
 
 
-@admin_bp.route('/<int:id>/delete', methods=('POST',))
+@admin_bp.route('/<int:product_id>/delete', methods=('POST','GET'))
 @login_required
-def delete(id):
-    get_product(id)
+def delete(product_id):
+    get_product(product_id)
     db = get_db()
-    db.execute('DELETE FROM post WHERE id = ?', (id,))
+    db.execute('DELETE FROM product WHERE id = ?', (product_id,))
     db.commit()
     return redirect(url_for('landingpage.index'))
 

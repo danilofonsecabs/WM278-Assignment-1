@@ -1,31 +1,47 @@
-{% extends 'admin/adminpage.html' %}
+{% extends 'base.html' %}
 
-{% block admin_content %}
+{% block content %}
 
-    <form method="post" enctype=multipart/form-data style="margin-left: 20px;">
-      <div style="margin-bottom: 10px;">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" value="{{ request.form['title'] }}" required>
-      </div>
+<link rel="stylesheet" href="static/style.css">
+<div class="container-fluid">
 
-      <div style="margin-bottom: 10px;">
-        <label for="price">Price:</label><br>
-        <input type="number" id="price" name="price" value="{{ request.form['price'] }}" required>
-      </div>
+  <div class="row">
+    <!-- Vertical Navbar -->
+    <nav class="col-md-2 d-flex flex-column bg-light text-dark">
+      <h5 class="my-3">Navbar</h5>
+      <a href="#" class="nav-link">Create a Product</a>
+      <a href="#" class="nav-link">Link 2</a>
+      <a href="#" class="nav-link">Link 3</a>
+    </nav>
+    <h1> Create a product</h1>
+    <div style="margin-bottom: 10px;">
+      <form method="post" enctype=multipart/form-data style="margin-left: 20px;">
+        <div style="margin-bottom: 10px;">
+          <label for="title">Title:</label><br>
+          <input type="text" id="title" name="title" value="{{ request.form['title'] }}" required>
+        </div>
 
-      <div style="margin-bottom: 10px;">
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50">{{ request.form['description'] }}</textarea>
-      </div>
+        <div style="margin-bottom: 10px;">
+          <label for="price">Price:</label><br>
+          <input type="number" id="price" name="price" value="{{ request.form['price'] }}" required>
+        </div>
 
-      <div style="margin-bottom: 10px;">
-        <label for="image">Image:</label><br>
-        <input type="file" id="image" name="image" accept="image/*">
-      </div>
-      <div>
-        <input type="submit" value="Save">
-      </div>
-    </form>
+        <div style="margin-bottom: 10px;">
+          <label for="description">Description:</label><br>
+          <textarea id="description" name="description" rows="4" cols="50">{{ request.form['description'] }}</textarea>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <label for="image">Image:</label><br>
+          <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <div>
+          <input type="submit" value="Save">
+        </div>
+      </form>
+    </div>
+  </div> <!-- End of Row -->
+</div> <!-- End of Container -->
 
 
-{% endblock%}
+{% endblock %}

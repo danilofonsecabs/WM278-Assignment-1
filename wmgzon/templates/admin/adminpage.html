@@ -1,24 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container-fluid">
-  <div class="row">
+<link rel="stylesheet" href="static/style.css">
 
-      <nav class="col-md-2 d-flex flex-column bg-light text-dark">
-          <h5 class="my-3">Navbar</h5>
-          <a href="#" class="nav-link">Link hubada skubada1</a>
-          <a href="#" class="nav-link">Link 2</a>
-          <a href="#" class="nav-link">Link 3</a>
-      </nav>
+<div class="button-container">
+    <!-- Welcome Label -->
+    <div class="label">
+        Welcome to the Admin Page
+    </div>
 
-    <!-- content area -->
-      <div class="col-md-10">
-        <div class="main-content">
-          {% block admin_content %}
-          {% endblock %}
+    <!-- Button Row -->
+    <div class="button-row">
+        <!-- Button 1: View All Data -->
+        <div class="button" onclick="window.location.href='#'">
+            View All Data
         </div>
-      </div>
-  </div>
+
+        <!-- Button 2: Add a Product -->
+        <div class="button" onclick="window.location.href= `{{ url_for('adminpage.create_product') }}`">
+            Add a Product
+        </div>
+
+        <!-- Button 3: See All Products as Admin -->
+        <div class="button" onclick="window.location.href= `{{ url_for('adminpage.view_products_admin') }}`">
+            See All Products
+        </div>
+    </div>
 </div>
+
 {% endblock %}
 
