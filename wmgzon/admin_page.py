@@ -11,7 +11,7 @@ admin_bp = Blueprint('adminpage', __name__)
 
 # Function to check if the file extension is allowed
 def allowed_file(filename):
-    #ALLOWED_EXTENSIONS = current_app.config['ALLOWED_EXTENSIONS']
+
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -132,34 +132,41 @@ def view_product(product_id):
 @login_required
 def delete(product_id):
     get_product(product_id)
+    print(product_id)
     db = get_db()
     db.execute('DELETE FROM product WHERE id = ?', (product_id,))
     db.commit()
-    return redirect(url_for('landingpage.index'))
+    return redirect(url_for('adminpage.view_products_admin'))
 
-# @bp.route('/<int:id>/update', methods=('GET', 'POST'))
-# @login_required
-# def update(id):
-#     post = get_post(id)
-#
-#     if request.method == 'POST':
-#         title = request.form['title']
-#         body = request.form['body']
-#         error = None
-#
-#         if not title:
-#             error = 'Title is required.'
-#
-#         if error is not None:
-#             flash(error)
-#         else:
-#             db = get_db()
-#             db.execute(
-#                 'UPDATE post SET title = ?, body = ?'
-#                 ' WHERE id = ?',
-#                 (title, body, id)
-#             )
-#             db.commit()
-#             return redirect(url_for('blog.index'))
-#
-#     return render_template('blog/update.html', post=post)
+@admin_bp.route('/<int:product_id>/update', methods=('GET', 'POST'))
+@login_required
+def update(product_id):
+
+    product = get_product(product_id)
+
+    print("product_ id", product_id)
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        description = request.form['description']
+        author_id = g.user['id']
+        error = None
+
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE product SET title = ?, price = ?, description = ?, author_id = ?'
+                ' WHERE id = ?',
+                (title, price, description, author_id, product_id)
+            )
+            db.commit()
+            flash('Product edited')
+            return redirect(url_for('adminpage.view_products_admin'))
+
+    return render_template('admin/update.html', product=product)

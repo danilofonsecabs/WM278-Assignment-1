@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ product['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" enctype="multipart/form-data" style="margin-left: 20px;">
+    <label for="title">Title</label>
+    <input name="title" id="title" value="{{ request.form.get('title') or product['title'] }}" required>
+    <label for="description">Description</label>
+    <textarea name="description" id="description">{{ request.form.get('description') or product['description'] }}</textarea>
+    <label for="price">Price:</label><br>
+    <input id="price" name="price" value="{{ request.form.get('price') or product['price'] }}" required>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+
+{% endblock %}

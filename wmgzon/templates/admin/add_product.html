@@ -9,12 +9,12 @@
     <!-- Vertical Navbar -->
     <nav class="col-md-2 d-flex flex-column bg-light text-dark">
       <h5 class="my-3">Navbar</h5>
-      <a href="#" class="nav-link">Create a Product</a>
-      <a href="#" class="nav-link">Link 2</a>
-      <a href="#" class="nav-link">Link 3</a>
+      <a href="{{ url_for('adminpage.admin_home') }}" class="nav-link">Admin Home</a>
+      <a href="{{ url_for('adminpage.view_products_admin') }}" class="nav-link">Products Admin</a>
     </nav>
-    <h1> Create a product</h1>
+
     <div style="margin-bottom: 10px;">
+      <h1> Create a product</h1>
       <form method="post" enctype=multipart/form-data style="margin-left: 20px;">
         <div style="margin-bottom: 10px;">
           <label for="title">Title:</label><br>
@@ -23,7 +23,7 @@
 
         <div style="margin-bottom: 10px;">
           <label for="price">Price:</label><br>
-          <input type="number" id="price" name="price" value="{{ request.form['price'] }}" required>
+          <input type="text" id="price" name="price" value="{{ request.form['price'] }}" required>
         </div>
 
         <div style="margin-bottom: 10px;">
