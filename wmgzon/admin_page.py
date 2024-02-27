@@ -6,12 +6,6 @@ from wmgzon.auth import login_required
 from wmgzon import current_app
 
 admin_bp = Blueprint('adminpage', __name__, url_prefix='/admin')
-# UPLOAD_FOLDER = 'wmgzon/static/product_images/'
-#
-
- # Specify the folder where product_images will be uploaded
-
-
 
 # Function to check if the file extension is allowed
 def allowed_file(filename):
@@ -74,3 +68,6 @@ def create_product():
 
     return render_template('admin/add_product.html')
 
+@admin_bp.route('/<int:id>/delete', methods=('POST'))
+@login_required
+def delete(id)
