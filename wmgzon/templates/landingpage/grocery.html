@@ -14,7 +14,7 @@
 
     <!-- Product List -->
     <div class="col-md-10">
-      <h2 class="mt-3">Product List</h2>
+      <h2 class="mt-3">Grocery</h2>
 
       <div class="row">
         {% for product in products %}
@@ -24,7 +24,7 @@
               <div class="card-body">
                 <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
                 <h5 class="card-title">{{ product['title'] }}</h5>
-                <p class="card-text">{{ product['description'] }} <br>{{ product['price'] }} <br> created by: {{ product['username'] }}</p>
+                <p class="card-text">{{ product['description'] }} <br>£{{ product['price'] }} <br> product by: {{ product['username'] }}</p>
                 <a href="{{ url_for('grocery.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
               </div>
             </div>

@@ -25,6 +25,9 @@
           <label for="price">Price:</label><br>
           <input type="text" id="price" name="price" value="{{ request.form['price'] }}" required>
         </div>
+        <div style="margin-bottom: 10px;">
+        </div>
+
 
         <div style="margin-bottom: 10px;">
           <label for="description">Description:</label><br>
@@ -35,9 +38,39 @@
           <label for="image">Image:</label><br>
           <input type="file" id="image" name="image" accept="image/*">
         </div>
+
+        <div style="margin-bottom: 10px;">
+          <label for="category">Category:</label><br>
+          <select id="category" name="category">
+            <option value="grocery" {% if request.form['category'] == 'grocery' %} selected {% endif %}>Grocery</option>
+            <option value="electrics" {% if request.form['category'] == 'electrics' %} selected {% endif %}>Electrics</option>
+            <option value="toys" {% if request.form['category'] == 'toys' %} selected {% endif %}>Toys</option>
+          </select>
+        </div>
+        <!-- Additional fields for grocery category (initially hidden) -->
+        <div id="groceryFields" style="display: {% if request.form['category'] == 'grocery' %} block {% else %} none {% endif %};">
+          <div style="margin-bottom: 10px;">
+            <input type="checkbox" id="glutenFree" name="glutenFree">
+            <label for="glutenFree">Gluten Free</label><br>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <input type="checkbox" id="vegan" name="vegan">
+            <label for="vegan">Vegan</label><br>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <input type="checkbox" id="dairyFree" name="dairyFree">
+            <label for="dairyFree">Dairy Free</label><br>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <label for="stock">Enter the amount of stock:</label><br>
+          <input type="number" id="stock" name="stock" value="{{ request.form['stock'] }}" required>
+        </div>
         <div>
           <input type="submit" value="Save">
         </div>
+
       </form>
     </div>
   </div> <!-- End of Row -->

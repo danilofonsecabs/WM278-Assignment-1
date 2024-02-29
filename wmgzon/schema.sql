@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS grocery;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS stock_information;
 
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,10 +23,26 @@ CREATE TABLE product (
 
 );
 
-CREATE TABLE grocery (
-    id INTEGER PRIMARY KEY,
+CREATE TABLE category (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER,
-    expiration_data DATE,
     category TEXT,
     FOREIGN KEY (product_id) REFERENCES product(id)
-)
+);
+
+CREATE TABLE grocery (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER UNIQUE NOT NULL,
+    gluten_free BOOLEAN NOT NULL,
+    vegan BOOLEAN NOT NULL,
+    dairy_free BOOLEAN NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+CREATE TABLE stock_information (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id INTEGER UNIQUE NOT NULL,
+    current_stock INTEGER NOT NULL,
+    starting_stock INTEGER NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);

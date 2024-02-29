@@ -11,12 +11,13 @@ grocery = Blueprint('grocery', __name__, template_folder='landingpage/grocery')
 def index():
     db = get_db()
     products = db.execute(
-
-        'SELECT p.id, title, description, price, image_filename, author_id, username'
-        ' FROM product p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY price DESC'
-
-     ).fetchall()
+        'SELECT p.id, title, description, price, image_filename, author_id, username '
+        'FROM product p '
+        'JOIN user u ON p.author_id = u.id '
+        'JOIN category c ON p.id = c.product_id '
+        'WHERE c.category = "grocery" '
+        'ORDER BY p.price DESC'
+    ).fetchall()
     return render_template('landingpage/grocery.html', products=products)
 
 @grocery.route('/<int:product_id>')

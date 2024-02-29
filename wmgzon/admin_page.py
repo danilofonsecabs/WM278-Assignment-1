@@ -81,13 +81,35 @@ def create_product():
             flash(error)
         else:
             db = get_db()
-            db.execute(
+            cursor = db.cursor()
+            cursor.execute(
                 'INSERT INTO product (title, price, description, image_filename, author_id)'
                 ' VALUES (?, ?, ?, ?, ?)',
                 (title, price, description, filename, g.user['id'])
+
             )
             db.commit()
-            flash('Product created')
+
+            product_id = cursor.lastrowid
+
+            # Insert into category table
+            category = request.form['category']
+            cursor.execute(
+                'INSERT INTO category (product_id, category) VALUES (?, ?)',
+                (product_id, category)
+            )
+            db.commit()
+
+            # Insert into stock_information table
+            stock = request.form['stock']
+            cursor.execute(
+                'INSERT INTO stock_information (product_id, current_stock, starting_stock) VALUES (?, ?, ?)',
+                (product_id, stock, stock)
+            )
+            db.commit()
+
+            # Close the cursor
+            cursor.close()
             return redirect(url_for('landingpage.index'))
 
     return render_template('admin/add_product.html')
@@ -134,7 +156,9 @@ def delete(product_id):
     get_product(product_id)
     print(product_id)
     db = get_db()
-    db.execute('DELETE FROM product WHERE id = ?', (product_id,))
+    db.execute('DELETE FROM product  WHERE id = ?', (product_id,))
+    db.execute('DELETE FROM category  WHERE id = ?', (product_id,))
+    db.execute('DELETE FROM stock_information  WHERE id = ?', (product_id,))
     db.commit()
     return redirect(url_for('adminpage.view_products_admin'))
 
