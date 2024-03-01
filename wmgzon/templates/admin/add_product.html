@@ -47,21 +47,7 @@
             <option value="toys" {% if request.form['category'] == 'toys' %} selected {% endif %}>Toys</option>
           </select>
         </div>
-        <!-- Additional fields for grocery category (initially hidden) -->
-        <div id="groceryFields" style="display: {% if request.form['category'] == 'grocery' %} block {% else %} none {% endif %};">
-          <div style="margin-bottom: 10px;">
-            <input type="checkbox" id="glutenFree" name="glutenFree">
-            <label for="glutenFree">Gluten Free</label><br>
-          </div>
-          <div style="margin-bottom: 10px;">
-            <input type="checkbox" id="vegan" name="vegan">
-            <label for="vegan">Vegan</label><br>
-          </div>
-          <div style="margin-bottom: 10px;">
-            <input type="checkbox" id="dairyFree" name="dairyFree">
-            <label for="dairyFree">Dairy Free</label><br>
-          </div>
-        </div>
+
 
         <div style="margin-bottom: 10px;">
           <label for="stock">Enter the amount of stock:</label><br>

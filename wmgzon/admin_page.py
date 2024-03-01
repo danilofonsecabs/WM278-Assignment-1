@@ -110,9 +110,26 @@ def create_product():
 
             # Close the cursor
             cursor.close()
-            return redirect(url_for('landingpage.index'))
+            if category == 'grocery':
+                return redirect(url_for('adminpage.create_product_grocery'))
+
+            else:
+                return redirect(url_for('adminpage.view_products_admin'))
 
     return render_template('admin/add_product.html')
+
+@admin_bp.route('/createproductgrocery/<int:product_id>', methods=('POST','GET'))
+@login_required
+def create_product_grocery(product_id):
+    if request.method == 'POST':
+        # need to add render template and need to pass the product id 
+        # get_product(product_id)
+        #
+        # db = get_db()
+        # db.execute('INSERT INTO grocery ()', (product_id,))
+        #
+        # db.commit()
+        return redirect(url_for('adminpage.view_products_admin'))
 
 
 @admin_bp.route('/view_products')
@@ -131,7 +148,7 @@ def view_products_admin():
 @admin_bp.route('/<int:product_id>')
 def view_product(product_id):
     # Retrieve product information from the database using the product_id
-    cursor = get_db().cursor()  # Assuming you have a function get_db() to get a database cursor
+    cursor = get_db().cursor()
 
     # Execute SQL query to fetch product details
     cursor.execute(
@@ -154,7 +171,7 @@ def view_product(product_id):
 @login_required
 def delete(product_id):
     get_product(product_id)
-    print(product_id)
+
     db = get_db()
     db.execute('DELETE FROM product  WHERE id = ?', (product_id,))
     db.execute('DELETE FROM category  WHERE id = ?', (product_id,))
