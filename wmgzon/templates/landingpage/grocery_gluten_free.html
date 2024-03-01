@@ -7,14 +7,14 @@
     <!-- Vertical Navbar -->
     <nav class="col-md-2 d-flex flex-column bg-light text-dark">
       <h5 class="my-3">Navbar</h5>
-      <a href="{{ url_for('grocery.grocery_gluten_free') }}" class="nav-link">gluten free</a>
+      <a href="#" class="nav-link">Link 1</a>
       <a href="#" class="nav-link">Link 2</a>
       <a href="#" class="nav-link">Link 3</a>
     </nav>
 
     <!-- Product List -->
     <div class="col-md-10">
-      <h2 class="mt-3">Grocery</h2>
+      <h2 class="mt-3">gluten free products</h2>
 
       <div class="row">
         {% for product in products %}
@@ -37,4 +37,6 @@
     </div> <!-- End of Product List -->
   </div> <!-- End of Row -->
 </div> <!-- End of Container -->
+
+
 {% endblock %}

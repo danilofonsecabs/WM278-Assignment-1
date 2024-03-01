@@ -20,6 +20,30 @@ def index():
     ).fetchall()
     return render_template('landingpage/grocery.html', products=products)
 
+@grocery.route('/grocery_gluten_free')
+def grocery_gluten_free():
+    db = get_db()
+    gluten_free_products = db.execute(
+        'SELECT p.id, p.title, p.description, p.price, p.image_filename, p.author_id, u.username '
+        'FROM product p '
+        'JOIN user u ON p.author_id = u.id '
+        'JOIN grocery g ON p.id = g.product_id '
+        'WHERE g.gluten_free = 1'  # Select products where gluten_free is true
+    ).fetchall()
+    return render_template('landingpage/grocery_gluten_free.html', products=gluten_free_products)
+
+@grocery.route('/grocery_vegan')
+def grocery_vegan():
+    db = get_db()
+    vegan_products = db.execute(
+        'SELECT p.id, p.title, p.description, p.price, p.image_filename, p.author_id, u.username '
+        'FROM product p '
+        'JOIN user u ON p.author_id = u.id '
+        'JOIN grocery g ON p.id = g.product_id '
+        'WHERE g.vegan = 1'  # Select products where gluten_free is true
+    ).fetchall()
+    return render_template('landingpage/grocery_vegan.html', products=vegan_products)
+
 @grocery.route('/<int:product_id>')
 def view_product(product_id):
     # Retrieve product information from the database using the product_id

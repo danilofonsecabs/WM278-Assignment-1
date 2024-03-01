@@ -47,8 +47,8 @@ def create_app(test_config=None):
         conn.close()
         return render_template('view_data_product.html', data=data)
 
-    @app.route('/view_data_grocery')
-    def view_data_grocery():
+    @app.route('/view_data_category')
+    def view_data_category():
         conn = sqlite3.connect(app.config['DATABASE'])
         c = conn.cursor()
         c.execute('SELECT * FROM category')
@@ -64,6 +64,15 @@ def create_app(test_config=None):
         data = c.fetchall()
         conn.close()
         return render_template('view_data_stock.html', data=data)
+
+    @app.route('/view_data_grocery')
+    def view_data_grocery():
+        conn = sqlite3.connect(app.config['DATABASE'])
+        c = conn.cursor()
+        c.execute('SELECT * FROM grocery')
+        data = c.fetchall()
+        conn.close()
+        return render_template('view_data_grocery.html', data=data)
 
     from . import db
     db.init_app(app)

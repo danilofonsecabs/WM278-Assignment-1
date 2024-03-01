@@ -13,7 +13,24 @@
       <a href="{{ url_for('adminpage.view_products_admin') }}" class="nav-link">Products Admin</a>
     </nav>
 
-    <h1> this is the grocery page</h1>
+    <div style="margin-bottom: 10px;">
+      <h1> Create a product</h1>
+     <form method="POST" action="{{ url_for('adminpage.create_product_grocery', product_id=product_id) }}">
+          <label for="gluten_free">Gluten-Free:</label>
+          <input type="checkbox" id="gluten_free" name="gluten_free" value="1">
+          <br>
+
+          <label for="dairy_free">Dairy-Free:</label>
+          <input type="checkbox" id="dairy_free" name="dairy_free" value="1">
+          <br>
+
+          <label for="vegan">Vegan:</label>
+          <input type="checkbox" id="vegan" name="vegan" value="1">
+          <br>
+
+          <input type="submit" value="Submit">
+     </form>
+    </div>
    </div> <!-- End of Row -->
 </div> <!-- End of Container -->
 {% endblock %}

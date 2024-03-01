@@ -111,7 +111,7 @@ def create_product():
             # Close the cursor
             cursor.close()
             if category == 'grocery':
-                return redirect(url_for('adminpage.create_product_grocery'))
+                return redirect(url_for('adminpage.create_product_grocery', product_id=product_id))
 
             else:
                 return redirect(url_for('adminpage.view_products_admin'))
@@ -121,16 +121,26 @@ def create_product():
 @admin_bp.route('/createproductgrocery/<int:product_id>', methods=('POST','GET'))
 @login_required
 def create_product_grocery(product_id):
+
     if request.method == 'POST':
-        # need to add render template and need to pass the product id 
-        # get_product(product_id)
-        #
-        # db = get_db()
-        # db.execute('INSERT INTO grocery ()', (product_id,))
-        #
-        # db.commit()
+        # Extract data from the form
+        gluten_free = bool(request.form.get('gluten_free'))
+        vegan = bool(request.form.get('vegan'))
+        dairy_free = bool(request.form.get('dairy_free'))
+
+        # Insert data into the grocery table
+        db = get_db()
+        db.execute(
+            'INSERT INTO grocery (product_id, gluten_free, vegan, dairy_free) VALUES (?, ?, ?, ?)',
+            (product_id, gluten_free, vegan, dairy_free)
+        )
+        db.commit()
+
+        # Redirect to admin page after successful insertion
         return redirect(url_for('adminpage.view_products_admin'))
 
+        # Pass product_id to the template
+    return render_template('admin/add_grocery_information.html', product_id=product_id)
 
 @admin_bp.route('/view_products')
 @login_required
