@@ -1,4 +1,4 @@
-from flask import Flask, render_template, current_app
+from flask import Flask, render_template, current_app, request
 import sqlite3
 from markupsafe import escape
 import os
@@ -37,6 +37,7 @@ def create_app(test_config=None):
     @app.route("/hello")
     def home():
         return "Hello! this is checking wether the website is functional <h1>HELLO</h1>"
+
 
     @app.route('/view_data')
     def view_data():

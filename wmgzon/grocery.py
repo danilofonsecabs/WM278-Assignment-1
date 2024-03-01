@@ -18,7 +18,7 @@ def index():
         'WHERE c.category = "grocery" '
         'ORDER BY p.price DESC'
     ).fetchall()
-    return render_template('landingpage/grocery.html', products=products)
+    return render_template('landingpage/grocery.html', products=products, page_type='all')
 
 @grocery.route('/grocery_gluten_free')
 def grocery_gluten_free():
@@ -30,7 +30,7 @@ def grocery_gluten_free():
         'JOIN grocery g ON p.id = g.product_id '
         'WHERE g.gluten_free = 1'  # Select products where gluten_free is true
     ).fetchall()
-    return render_template('landingpage/grocery_gluten_free.html', products=gluten_free_products)
+    return render_template('landingpage/grocery.html', products=gluten_free_products, page_type='gluten_free')
 
 @grocery.route('/grocery_vegan')
 def grocery_vegan():
@@ -42,7 +42,19 @@ def grocery_vegan():
         'JOIN grocery g ON p.id = g.product_id '
         'WHERE g.vegan = 1'  # Select products where gluten_free is true
     ).fetchall()
-    return render_template('landingpage/grocery_vegan.html', products=vegan_products)
+    return render_template('landingpage/grocery.html', products=vegan_products, page_type='vegan')
+
+@grocery.route('/grocery_dairy_free')
+def grocery_dairy_free():
+    db = get_db()
+    dairy_free_products = db.execute(
+        'SELECT p.id, p.title, p.description, p.price, p.image_filename, p.author_id, u.username '
+        'FROM product p '
+        'JOIN user u ON p.author_id = u.id '
+        'JOIN grocery g ON p.id = g.product_id '
+        'WHERE g.dairy_free = 1'  # Select products where gluten_free is true
+    ).fetchall()
+    return render_template('landingpage/grocery.html', products=dairy_free_products, page_type='dairy_free')
 
 @grocery.route('/<int:product_id>')
 def view_product(product_id):

@@ -6,10 +6,10 @@
   <div class="row">
     <!-- Vertical Navbar -->
     <nav class="col-md-2 d-flex flex-column bg-light text-dark">
-      <h5 class="my-3">Navbar</h5>
-      <a href="#" class="nav-link">Link 1</a>
-      <a href="#" class="nav-link">Link 2</a>
-      <a href="#" class="nav-link">Link 3</a>
+      <h5 class="my-3">Home</h5>
+      <a href="{{ url_for('grocery.index') }}" class="nav-link">Grocery</a>
+      <a href="{{ url_for('landingpage.index_electrical') }}" class="nav-link">Electrical</a>
+      <a href="{{ url_for('landingpage.index_toys') }}" class="nav-link">Toys</a>
     </nav>
 
     <!-- Product List -->

@@ -22,4 +22,22 @@ def index():
 
     return render_template('landingpage/index.html', products=products)
 
+@landingpage.route('/search')
+def search():
+    db = get_db()
+    query = request.args.get('query', '')
+        # Query the database for products with names matching the search query
+        # Replace 'products' with your actual table name and adjust the query accordingly
+    results = db.execute(
+    'SELECT * FROM product WHERE title LIKE ?', ('%' + query + '%',)
+    ).fetchall()
+    return render_template('search_results.html', results=results)
 
+
+@landingpage.route('/toys')
+def index_toys():
+    return render_template('landingpage/Coming_soon_products.html', page_type='toys')
+
+@landingpage.route('/electrical')
+def index_electrical():
+    return render_template('landingpage/Coming_soon_products.html', page_type='electrical')
