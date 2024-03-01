@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+   <body>
+    <div class="button-container">
+        <a href="{{ url_for('adminpage.view_data_grocery') }}" class="button btn btn-primary">View Grocery </a>
+        <a href="{{ url_for('adminpage.view_data_product') }}" class="button btn btn-primary">View Product</a>
+        <a href="{{ url_for('adminpage.view_data_category') }}" class="button btn btn-primary">View Category</a>
+        <a href="{{ url_for('adminpage.view_data_stock') }}" class="button btn btn-primary">View Stock</a>
+        <a href="{{ url_for('adminpage.view_data_users') }}" class="button btn btn-primary">View Users</a>
+    </div>
+</body>
+{% endblock %}

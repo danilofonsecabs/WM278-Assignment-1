@@ -23,8 +23,8 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO user (username, password, is_admin) VALUES (?, ?, ?)",
+                    (username, generate_password_hash(password), False),
                 )
                 db.commit()
             except db.IntegrityError:
@@ -35,6 +35,36 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
+
+@bp.route('/register_admin', methods=('GET', 'POST'))
+def register_admin():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+
+        if not username:
+            error = 'Username is required.'
+        elif not password:
+            error = 'Password is required.'
+
+        if error is None:
+            try:
+                db.execute(
+                    "INSERT INTO user (username, password, is_admin) VALUES (?, ?, ?)",
+                    (username, generate_password_hash(password), True),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = f"User {username} is already registered."
+            else:
+                return redirect(url_for("auth.login"))
+
+        flash(error)
+
+    return render_template('auth/register.html')
+
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -80,6 +110,16 @@ def logout():
     session.clear()
     return redirect(url_for('landingpage.index'))
 
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None or not g.user['is_admin']:
+            flash("You don't have permission to access this page.")
+            return redirect(url_for('landingpage.index'))
+        return view(**kwargs)
+
+    return wrapped_view
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
@@ -90,5 +130,6 @@ def login_required(view):
 
     return wrapped_view
 
+# Admin decorator to restrict access to certain admin pages
 
 

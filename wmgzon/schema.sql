@@ -2,11 +2,13 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS stock_information;
+DROP TABLE IF EXISTS grocery;
 
 CREATE TABLE user(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    is_admin BOOLEAN NOT NULL
 );
 
 CREATE TABLE product (

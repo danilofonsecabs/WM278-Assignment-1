@@ -32,16 +32,16 @@
             {% if g.user %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">{{ g.user['username'] }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{ url_for('adminpage.admin_home') }}"> Admin page</a>
-            </li>
+              {% if g.user['is_admin'] %}
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('adminpage.admin_home') }}"> Admin page</a>
+              </li>
+              {% endif %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{ url_for('auth.logout') }}">Log Out</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Account Information</a>
-            </li>
+
             {% else %}
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{ url_for('auth.register') }}">Register</a>

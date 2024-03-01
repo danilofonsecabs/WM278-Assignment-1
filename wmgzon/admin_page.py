@@ -1,9 +1,10 @@
 from flask import(current_app, Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from wmgzon.db import get_db
+import sqlite3
 import os
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import abort
-from wmgzon.auth import login_required
+from wmgzon.auth import login_required, admin_required
 from wmgzon import current_app
 
 
@@ -33,13 +34,13 @@ def get_product(id, check_author=True):
     return post
 
 @admin_bp.route('/adminhome', methods=('GET', 'POST'))
-@login_required
+@admin_required
 def admin_home():
     return render_template('admin/adminpage.html')
 
 
 @admin_bp.route('/createproduct', methods=('GET', 'POST'))
-@login_required
+@admin_required
 def create_product():
     UPLOAD_FOLDER = current_app.config['UPLOAD_FOLDER']
     if request.method == 'POST':
@@ -119,7 +120,7 @@ def create_product():
     return render_template('admin/add_product.html')
 
 @admin_bp.route('/createproductgrocery/<int:product_id>', methods=('POST','GET'))
-@login_required
+@admin_required
 def create_product_grocery(product_id):
 
     if request.method == 'POST':
@@ -142,8 +143,60 @@ def create_product_grocery(product_id):
         # Pass product_id to the template
     return render_template('admin/add_grocery_information.html', product_id=product_id)
 
+@admin_bp.route('/view_tables')
+@admin_required
+def view_tables_admin():
+
+    return render_template('admin/view_all_tables.html')
+
+@admin_bp.route('/view_data_product')
+def view_data_product():
+    conn = sqlite3.connect(current_app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute('SELECT * FROM product')
+    data = c.fetchall()
+    conn.close()
+    return render_template('admin/view_data/view_data_product.html', data=data)
+
+@admin_bp.route('/view_data_category')
+def view_data_category():
+    conn = sqlite3.connect(current_app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute('SELECT * FROM category')
+    data = c.fetchall()
+    conn.close()
+    return render_template('admin/view_data/view_data_category.html', data=data)
+
+@admin_bp.route('/view_data_stock')
+def view_data_stock():
+    conn = sqlite3.connect(current_app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute('SELECT * FROM stock_information')
+    data = c.fetchall()
+    conn.close()
+    return render_template('admin/view_data/view_data_stock.html', data=data)
+
+@admin_bp.route('/view_data_grocery')
+def view_data_grocery():
+    conn = sqlite3.connect(current_app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute('SELECT * FROM grocery')
+    data = c.fetchall()
+    conn.close()
+    return render_template('admin/view_data/view_data_grocery.html', data=data)
+
+@admin_bp.route('/view_data_users')
+def view_data_users():
+    conn = sqlite3.connect(current_app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute('SELECT * FROM user')
+    data = c.fetchall()
+    conn.close()
+    return render_template('admin/view_data/view_data_users.html', data=data)
+
+
 @admin_bp.route('/view_products')
-@login_required
+@admin_required
 def view_products_admin():
     db = get_db()
     products = db.execute(
@@ -156,6 +209,7 @@ def view_products_admin():
     return render_template('admin/view_products_admin.html', products=products)
 
 @admin_bp.route('/<int:product_id>')
+@admin_required
 def view_product(product_id):
     # Retrieve product information from the database using the product_id
     cursor = get_db().cursor()
@@ -178,7 +232,7 @@ def view_product(product_id):
 
 
 @admin_bp.route('/<int:product_id>/delete', methods=('POST','GET'))
-@login_required
+@admin_required
 def delete(product_id):
     get_product(product_id)
 
@@ -190,7 +244,7 @@ def delete(product_id):
     return redirect(url_for('adminpage.view_products_admin'))
 
 @admin_bp.route('/<int:product_id>/update', methods=('GET', 'POST'))
-@login_required
+@admin_required
 def update(product_id):
 
     product = get_product(product_id)
