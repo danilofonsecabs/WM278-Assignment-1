@@ -10,3 +10,11 @@ VALUES
 INSERT INTO category (product_id, category)
 VALUES
   (1, grocery);
+
+INSERT INTO grocery (product_id, baby_foods, bestseller, beer_wine, frozen, home_care, food_cupboard, gluten_free, vegan, dairy_free)
+VALUES
+  (1, 0, 0, 0, 0, 0, 1, 0, 0, 1);
+
+INSERT INTO stock_information (product_id, current_stock, starting_stock)
+VALUES
+    (1, 20, 22)

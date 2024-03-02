@@ -36,7 +36,7 @@ def create_app(test_config=None):
         pass
     @app.route("/hello")
     def home():
-        return "Hello! this is checking wether the website is functional <h1>HELLO</h1>"
+        return "Hello! this is checking whether the website is functional <h1>HELLO</h1>"
 
 
     from . import db
