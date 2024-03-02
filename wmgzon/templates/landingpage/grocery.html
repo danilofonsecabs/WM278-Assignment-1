@@ -11,6 +11,12 @@
       <a href="{{ url_for('grocery.grocery_gluten_free') }}" class="nav-link {% if page_type == 'gluten_free' %}active{% endif %}">Gluten-Free</a>
       <a href="{{ url_for('grocery.grocery_vegan') }}" class="nav-link {% if page_type == 'vegan' %}active{% endif %}">Vegan</a>
       <a href="{{ url_for('grocery.grocery_dairy_free') }}" class="nav-link {% if page_type == 'dairy_free' %}active{% endif %}">dairy free</a>
+      <a href="{{ url_for('grocery.grocery_baby_foods') }}" class="nav-link {% if page_type == 'baby_foods' %}active{% endif %}">Baby Foods</a>
+      <a href="{{ url_for('grocery.grocery_bestseller') }}" class="nav-link {% if page_type == 'bestseller' %}active{% endif %}">Bestseller</a>
+      <a href="{{ url_for('grocery.grocery_beer_wine') }}" class="nav-link {% if page_type == 'beer_wine' %}active{% endif %}">Beer Wine</a>
+      <a href="{{ url_for('grocery.grocery_frozen') }}" class="nav-link {% if page_type == 'frozen' %}active{% endif %}">Frozen</a>
+      <a href="{{ url_for('grocery.grocery_home_care') }}" class="nav-link {% if page_type == 'home_care' %}active{% endif %}">Homecare</a>
+      <a href="{{ url_for('grocery.grocery_food_cupboard') }}" class="nav-link {% if page_type == 'food_cupboard' %}active{% endif %}">Food Cupboard</a>
       <!-- Add more links for other types of grocery pages -->
     </nav>
 
@@ -25,6 +31,18 @@
           Vegan Grocery Products
         {% elif page_type == 'dairy_free' %}
           Dairy Free Grocery Products
+        {% elif page_type == 'baby_foods' %}
+          baby foods
+        {% elif page_type == 'bestseller' %}
+          Bestsellers
+        {% elif page_type == 'beer_wine' %}
+          Beers & Wine
+        {% elif page_type == 'frozen' %}
+          Frozen Grocery Products
+        {% elif page_type == 'home_care' %}
+          Home Care Products
+        {% elif page_type == 'food_cupboard' %}
+          Cupboard Food
 
         {% endif %}
       </h2>

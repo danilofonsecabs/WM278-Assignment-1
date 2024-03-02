@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>Your Basket</h1>
+  <ul>
+    {% for product in basket %}
+    <li>{{ product.title }} - £{{ product.price }} - Quantity: {{ product.quantity }}</li>
+    {% endfor %}
+  </ul>
+  <p>Total Price: £{{ total_price }}</p>
+</div>
+{% endblock %}

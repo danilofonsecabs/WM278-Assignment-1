@@ -56,6 +56,4 @@ def create_app(test_config=None):
     app.register_blueprint(admin_page.admin_bp)
 
 
-
-
     return app

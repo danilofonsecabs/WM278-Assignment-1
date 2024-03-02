@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>{% block title %}{% endblock %}</title>
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #1000FF;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">WMGZON</a>
+        <a class="navbar-brand" href="#"><img src="static/WMGZON logo.png" alt="WMGZON Logo" width="100" height="30"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,6 +50,9 @@
               <a class="nav-link active" aria-current="page" href="{{ url_for('auth.login') }}">Log In</a>
             </li>
             {% endif %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Basket</a>
+            </li>
             </ul>
           <div>
         </div>

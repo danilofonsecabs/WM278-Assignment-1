@@ -26,8 +26,6 @@ def index():
 def search():
     db = get_db()
     query = request.args.get('query', '')
-        # Query the database for products with names matching the search query
-        # Replace 'products' with your actual table name and adjust the query accordingly
     results = db.execute(
     'SELECT * FROM product WHERE title LIKE ?', ('%' + query + '%',)
     ).fetchall()

@@ -35,6 +35,12 @@ CREATE TABLE category (
 CREATE TABLE grocery (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_id INTEGER UNIQUE NOT NULL,
+    baby_foods BOOLEAN NOT NULL,
+    bestseller BOOLEAN NOT NULL,
+    beer_wine BOOLEAN NOT NULL,
+    frozen BOOLEAN NOT NULL,
+    home_care BOOLEAN NOT NULL,
+    food_cupboard BOOLEAN NOT NULL,
     gluten_free BOOLEAN NOT NULL,
     vegan BOOLEAN NOT NULL,
     dairy_free BOOLEAN NOT NULL,

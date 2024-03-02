@@ -128,12 +128,18 @@ def create_product_grocery(product_id):
         gluten_free = bool(request.form.get('gluten_free'))
         vegan = bool(request.form.get('vegan'))
         dairy_free = bool(request.form.get('dairy_free'))
+        baby_food = bool(request.form.get('baby_food'))
+        bestseller = bool(request.form.get('bestseller'))
+        beer_wine = bool(request.form.get('beer_wine'))
+        frozen = bool(request.form.get('frozen'))
+        home_care = bool(request.form.get('home_care'))
+        food_cupboard = bool(request.form.get('food_cupboard'))
 
         # Insert data into the grocery table
         db = get_db()
         db.execute(
-            'INSERT INTO grocery (product_id, gluten_free, vegan, dairy_free) VALUES (?, ?, ?, ?)',
-            (product_id, gluten_free, vegan, dairy_free)
+            'INSERT INTO grocery (product_id, gluten_free, vegan, dairy_free, baby_foods, bestseller, beer_wine, frozen, home_care, food_cupboard) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            (product_id, gluten_free, vegan, dairy_free, baby_food, bestseller, beer_wine, frozen, home_care, food_cupboard)
         )
         db.commit()
 
