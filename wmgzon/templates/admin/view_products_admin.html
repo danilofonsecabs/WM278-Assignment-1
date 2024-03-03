@@ -19,20 +19,27 @@
       <div class="row">
         {% for product in products %}
             <div class="col-md-4 mb-3">
-              <div class="card datacard">
-                <div class="card-body">
-                  <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
-                  <h5 class="card-title">{{ product['title'] }}</h5>
-                  <p class="card-text">{{ product['description'] }} <br>{{ product['price'] }} <br> created by: {{ product['username'] }}</p>
+                <div class="card datacard">
+                    <div class="card-body" style="max-height: 800px; overflow: hidden;">
+                        <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
+                        <h5 class="card-title">{{ product['title'] }}</h5>
+                        <p class="card-text">
+                            {% if product['description']|length <= 30 %}
+                                {{ product['description'] }}
+                            {% else %}
+                                {{ product['description'][:30] }}...
+                            {% endif %}
+                            <br>£{{ product['price'] }} <br> product by: {{ product['username'] }}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('adminpage.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
+                        <a href="{{ url_for('adminpage.update', product_id=product['id']) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ url_for('adminpage.delete', product_id=product['id']) }}" method="post" style="display: inline;">
+                            <input class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                        </form>
+                    </div>
                 </div>
-                <div class="card-footer">
-                  <a href="{{ url_for('adminpage.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
-                  <a href="{{ url_for('adminpage.update', product_id=product['id']) }}" class="btn btn-primary">Edit</a>
-                  <form action="{{ url_for('adminpage.delete', product_id=product['id']) }}" method="post" style="display: inline;">
-                    <input class="btn btn-danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-                  </form>
-                </div>
-              </div>
             </div>
 
           {% if loop.index % 3 == 0 %}

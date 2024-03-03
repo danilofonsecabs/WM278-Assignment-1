@@ -3,9 +3,6 @@ import sqlite3
 from markupsafe import escape
 import os
 
-
-
-
 def create_app(test_config=None):
     # create and configure the app
     UPLOAD_FOLDER = 'wmgzon/static/images'  # Define the upload folder
@@ -16,7 +13,6 @@ def create_app(test_config=None):
         app.config.from_mapping(
             SECRET_KEY='dev',
             DATABASE=os.path.join(app.instance_path, 'wmgzon.sqlite'),
-             # Define allowed extensions
 
         )
         app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -37,7 +33,6 @@ def create_app(test_config=None):
     @app.route("/hello")
     def home():
         return "Hello! this is checking whether the website is functional <h1>HELLO</h1>"
-
 
     from . import db
     db.init_app(app)

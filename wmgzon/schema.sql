@@ -18,9 +18,6 @@ CREATE TABLE product (
     price REAL NOT NULL,
     description TEXT,
     image_filename TEXT,
---     rating INTEGER NOT NULL,
---     in_stock BOOLEAN,
---     image BLOB NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user (id)
 
 );

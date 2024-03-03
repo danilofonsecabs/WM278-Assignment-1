@@ -24,7 +24,14 @@
               <div class="card-body">
                 <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
                 <h5 class="card-title">{{ product['title'] }}</h5>
-                <p class="card-text">{{ product['description'] }} <br>£{{ product['price'] }} <br> product by: {{ product['username'] }}</p>
+                <p class="card-text">
+                    {% if product['description']|length <= 30 %}
+                        {{ product['description'] }}
+                    {% else %}
+                        {{ product['description'][:30] }}...
+                    {% endif %}
+                    <br>£{{ product['price'] }} <br> product by: {{ product['username'] }}
+                </p>
                 <a href="{{ url_for('grocery.view_product', product_id=product['id']) }}" class="btn btn-primary">View Product</a>
               </div>
             </div>

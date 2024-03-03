@@ -138,7 +138,8 @@ def create_product_grocery(product_id):
         # Insert data into the grocery table
         db = get_db()
         db.execute(
-            'INSERT INTO grocery (product_id, gluten_free, vegan, dairy_free, baby_foods, bestseller, beer_wine, frozen, home_care, food_cupboard) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO grocery (product_id, gluten_free, vegan, dairy_free, baby_foods, bestseller, beer_wine, '
+            'frozen, home_care, food_cupboard) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             (product_id, gluten_free, vegan, dairy_free, baby_food, bestseller, beer_wine, frozen, home_care, food_cupboard)
         )
         db.commit()
