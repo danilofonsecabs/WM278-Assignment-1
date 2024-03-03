@@ -31,8 +31,8 @@ def create_app(test_config=None):
     except OSError:
         pass
     @app.route("/hello")
-    def home():
-        return "Hello! this is checking whether the website is functional <h1>HELLO</h1>"
+    def hello():
+        return 'Hello, World!'
 
     from . import db
     db.init_app(app)

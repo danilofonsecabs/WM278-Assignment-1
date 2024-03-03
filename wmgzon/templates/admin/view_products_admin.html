@@ -22,7 +22,13 @@
                 <div class="card datacard">
                     <div class="card-body" style="max-height: 800px; overflow: hidden;">
                         <img src="static/images/{{ product['image_filename'] }}" class="card-img-top product-image" alt="product">
-                        <h5 class="card-title">{{ product['title'] }}</h5>
+                       <h5 class="card-title">
+                            {% if product['title']|length <= 30 %}
+                                {{ product['title'] }}
+                            {% else %}
+                                {{ product['title'][:30] }}...
+                            {% endif %}
+                       </h5>
                         <p class="card-text">
                             {% if product['description']|length <= 30 %}
                                 {{ product['description'] }}
